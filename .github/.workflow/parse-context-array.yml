@@ -1,0 +1,15 @@
+name: ParseContextArray
+
+on:
+  push:
+
+jobs:
+  test:
+    name: Parse Context Array
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+
+      - name: Parse Context Array
+        uses: ./.github/actions/parse-context-array/

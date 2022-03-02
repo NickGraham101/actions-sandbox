@@ -1,0 +1,13 @@
+name: parse-context-array
+description: Parse Context Array
+
+runs:
+  using: composite
+  steps:
+  - name: step one
+    shell: bash
+    runs: exit 0
+
+  - name: step two
+    shell: bash
+    runs: exit 0
