@@ -37,4 +37,4 @@ runs:
   - name: Report job status
     if: always()
     shell: bash
-    run: echo "job status: $JOB_STATUS"
+    run: echo 'job status: $JOB_STATUS'
