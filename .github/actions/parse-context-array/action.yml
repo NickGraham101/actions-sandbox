@@ -1,0 +1,40 @@
+name: parse-context-array
+description: Parse Context Array
+
+runs:
+  using: composite
+  steps:
+  - name: step one
+    id: step-one
+    shell: bash
+    run: exit 0
+
+  - name: step two
+    id: step-two
+    shell: bash
+    run: exit 0
+
+  - name: Evaluate job one status
+    if: always()
+    shell: bash
+    run: |
+      echo $STEP_OUTCOMES
+    env:
+      STEP_OUTCOMES: ${{ steps.step-one.outcome }}
+
+  - name: Evaluate job status
+    if: always()
+    shell: bash
+    run: |
+      if [ $STEP_OUTCOMES =~ "failure" ]; then
+        echo JOB_STATUS="failure" >> $GITHUB_ENV;
+      else
+        echo JOB_STATUS="success" >> $GITHUB_ENV;
+      fi;
+    env:
+      STEP_OUTCOMES: ${{ join(steps.*.outcome, ',') }}
+
+  - name: Report job status
+    if: always()
+    shell: bash
+    run: echo "job status ${{env.JOB_STATUS}}"
