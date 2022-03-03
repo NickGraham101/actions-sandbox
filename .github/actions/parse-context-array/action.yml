@@ -30,7 +30,7 @@ runs:
     shell: bash
     run: |
       JOB_STATUS="${{ join(steps.*.outcome, ',') }}"
-      if [ $JOB_STATUS =~ "failure" ]; then
+      if [[ $JOB_STATUS =~ "failure" ]]; then
         echo JOB_STATUS="failure" >> $GITHUB_ENV;
       else
         echo JOB_STATUS="success" >> $GITHUB_ENV;
