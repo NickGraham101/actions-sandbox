@@ -18,3 +18,5 @@ jobs:
 
       - name: Parse Context Array
         uses: ./.github/actions/parse-context-array/
+        with:
+          step-two-exit-code: ${{ github.event.inputs.step-two-exit-code }}
