@@ -29,7 +29,8 @@ runs:
     if: always()
     shell: bash
     run: |
-      if [ ${{ join(steps.*.outcome, ',') }} =~ "failure" ]; then
+      JOB_STATUS=${{ join(steps.*.outcome, ',') }}
+      if [ $JOB_STATUS =~ "failure" ]; then
         echo JOB_STATUS="failure" >> $GITHUB_ENV;
       else
         echo JOB_STATUS="success" >> $GITHUB_ENV;
