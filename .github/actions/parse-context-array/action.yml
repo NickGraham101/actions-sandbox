@@ -18,25 +18,22 @@ runs:
     shell: bash
     run: exit ${{ inputs.step-two-exit-code }}
 
-  - name: Evaluate job one status
+  - name: Echo job statuses
     if: always()
     shell: bash
     run: |
-      echo $STEP_OUTCOMES
-    env:
-      STEP_OUTCOMES: ${{ steps.step-one.outcome }}
+      echo ${{ steps.step-one.outcome }}
+      echo ${{ steps.step-two.outcome }}
 
   - name: Evaluate job status
     if: always()
     shell: bash
     run: |
-      if [ $STEP_OUTCOMES =~ "failure" ]; then
+      if [ ${{ join(steps.*.outcome, ',') }} =~ "failure" ]; then
         echo JOB_STATUS="failure" >> $GITHUB_ENV;
       else
         echo JOB_STATUS="success" >> $GITHUB_ENV;
       fi;
-    env:
-      STEP_OUTCOMES: ${{ join(steps.*.outcome, ',') }}
 
   - name: Report job status
     if: always()
