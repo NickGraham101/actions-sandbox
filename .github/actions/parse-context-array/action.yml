@@ -18,4 +18,4 @@ runs:
     run: |
       echo $STEP_OUTCOMES
     env:
-      STEP_OUTCOMES: toJSON(${{ steps.*.outcome }})
+      STEP_OUTCOMES: join(${{ steps.*.outcome }, ','})
