@@ -1,6 +1,12 @@
 name: ParseContextArray
 
-on: [push]
+on: 
+  workflow_dispatch:
+    inputs:
+      step-two-exit-code:
+        type: number
+        default: 0
+  push:
 
 jobs:
   test:

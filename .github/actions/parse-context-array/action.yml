@@ -1,6 +1,10 @@
 name: parse-context-array
 description: Parse Context Array
 
+inputs:
+  step-two-exit-code:
+    required: true
+
 runs:
   using: composite
   steps:
@@ -12,7 +16,7 @@ runs:
   - name: step two
     id: step-two
     shell: bash
-    run: exit 0
+    run: exit ${{ inputs.step-two-exit-code }}
 
   - name: Evaluate job one status
     if: always()
