@@ -1,7 +1,6 @@
 name: ParseContextArray
 
-on:
-  push:
+on: [push]
 
 jobs:
   test:
