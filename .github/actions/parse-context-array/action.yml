@@ -11,3 +11,11 @@ runs:
   - name: step two
     shell: bash
     run: exit 0
+
+  - name: Evaluate job status
+    if: always()
+    shell: bash
+    run: |
+      echo $STEP_OUTCOMES
+    env:
+      STEP_OUTCOMES: ${{ steps.*.outcome }}
