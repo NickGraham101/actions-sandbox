@@ -6,8 +6,8 @@ runs:
   steps:
   - name: step one
     shell: bash
-    runs: exit 0
+    run: exit 0
 
   - name: step two
     shell: bash
-    runs: exit 0
+    run: exit 0
