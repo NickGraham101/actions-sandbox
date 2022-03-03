@@ -26,6 +26,15 @@ runs:
     if: always()
     shell: bash
     run: |
-      echo $STEP_OUTCOMES
+      if [ $STEP_OUTCOMES =~ "failure" ]; then
+        echo JOB_STATUS="failure" >> $GITHUB_ENV;
+      else
+        echo JOB_STATUS="success" >> $GITHUB_ENV;
+      fi;
     env:
       STEP_OUTCOMES: ${{ join(steps.*.outcome, ',') }}
+
+  - name: Report job status
+    if: always()
+    shell: bash
+    run: echo "job status: $JOB_STATUS"
