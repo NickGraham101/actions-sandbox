@@ -1,0 +1,33 @@
+name: DefaultActionValues
+
+on: 
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Default Action Values
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+
+      - name: Minimal Inputs
+        uses: ./.github/actions/default-action-values/
+        with:
+          required-input: 'some string'
+
+      - name: All Inputs
+        uses: ./.github/actions/default-action-values/
+        with:
+          required-input: 'some required input'
+          input-with-default: 'some optional input'
+          input-with-no-default: 'another optional input'
+
+      - name: Event Input
+        uses: ./.github/actions/default-action-values/
+        with:
+          required-input: 'some required input'
+          input-with-default: ${{ github.event.pull_request.head.ref }}
+          input-with-no-default: ${{ github.event.pull_request.head.ref }}
+
