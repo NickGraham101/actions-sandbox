@@ -1,0 +1,22 @@
+name: default-action-values
+description: Default Action Values
+
+inputs:
+  required-input:
+    required: true
+  input-with-default:
+    required: false
+    default: 'arbitrary string'
+  input-with-no-default:
+    required: false
+
+runs:
+  using: composite
+  steps:
+  - name: echo inputs
+    id: echo-inputs
+    shell: bash
+    run: |
+      echo ${{ inputs.required-input }}
+      echo ${{ inputs.input-with-default }}
+      echo ${{ inputs.input-with-no-default }}
