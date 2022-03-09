@@ -17,6 +17,6 @@ runs:
     id: echo-inputs
     shell: bash
     run: |
-      echo ${{ inputs.required-input }}
-      echo ${{ inputs.input-with-default }}
-      echo ${{ inputs.input-with-no-default }}
+      echo '${{ inputs.required-input }}'
+      echo '${{ inputs.input-with-default }}'
+      echo '${{ inputs.input-with-no-default }}'
