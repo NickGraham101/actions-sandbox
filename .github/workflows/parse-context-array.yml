@@ -6,7 +6,6 @@ on:
       step-two-exit-code:
         type: number
         default: 0
-  push:
 
 jobs:
   test:
