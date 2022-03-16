@@ -1,0 +1,46 @@
+name: DploymentStatusUpdate
+
+on: 
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Dployment Status Update
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set Current Deployment Environment variable
+      shell: bash
+      run: |
+        echo "DEPLOY_ENV=Test" >> $GITHUB_ENV
+        ##TO DO: test for PR and set echo "DEPLOY_REF=${{ github.head_ref }}" >> $GITHUB_ENV
+        echo "DEPLOY_REF=${{ github.ref }}" >> $GITHUB_ENV
+        echo "DEPLOY_URL=https://example.com
+
+    - name: Start ${{ env.DEPLOY_ENV }} Deployment
+      uses: bobheadxi/deployments@v1
+      id: deployment-start-status
+      with:
+        step: start
+        token: ${{ secrets.GITHUB_TOKEN }}
+        env: ${{ env.DEPLOY_ENV }}
+        ref: ${{ env.DEPLOY_REF }}
+
+    - name: Do some stuff
+      shell: bash
+      run: |
+        echo "Do some stuff $(date +%T)"
+        sleep 30
+        echo "Done some stuff $(date +%T)"
+
+    - name: Update ${{ env.DEPLOY_ENV }} status
+      if: always()
+      uses: bobheadxi/deployments@v1
+      with:
+        step: finish
+        token: ${{ secrets.GITHUB_TOKEN }}
+        env: ${{ env.DEPLOY_ENV }}
+        status: ${{ job.status }}
+        deployment_id: ${{ steps.deployment-start-status.outputs.deployment_id }}
+        env_url: ${{ env.DEPLOY_URL }}
+        ref: ${{ env.DEPLOY_REF }}
