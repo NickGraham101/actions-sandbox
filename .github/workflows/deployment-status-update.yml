@@ -1,4 +1,4 @@
-name: DploymentStatusUpdate
+name: DeploymentStatusUpdate
 
 on: 
   pull_request:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    name: Dployment Status Update
+    name: Deployment Status Update
     runs-on: ubuntu-latest
     steps:
     - name: Set Current Deployment Environment variable
@@ -15,7 +15,7 @@ jobs:
         echo "DEPLOY_ENV=Test" >> $GITHUB_ENV
         ##TO DO: test for PR and set echo "DEPLOY_REF=${{ github.head_ref }}" >> $GITHUB_ENV
         echo "DEPLOY_REF=${{ github.ref }}" >> $GITHUB_ENV
-        echo "DEPLOY_URL=https://example.com
+        echo "DEPLOY_URL=https://example.com"
 
     - name: Start ${{ env.DEPLOY_ENV }} Deployment
       uses: bobheadxi/deployments@v1
