@@ -24,7 +24,7 @@ jobs:
         echo "Done some stuff $(date +%T)"
 
     - name: Fail deployment
-      if: ${{ github.event.inputs.fail-deployment }}
+      if: ${{ github.event.inputs.fail-deployment == true }}
       shell: bash
       run: exit 1
 
