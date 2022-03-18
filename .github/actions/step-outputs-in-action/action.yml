@@ -13,6 +13,12 @@ runs:
     shell: bash
     run: echo "Do more stuff"
 
+  - name: step three
+    id: step-three
+    if: steps.step-one.outputs.done == 'stuff'
+    shell: bash
+    run: echo "Doing stuff because child done stuff"
+
   - name: echo step one context
     id: echo-step-one-context
     shell: bash
