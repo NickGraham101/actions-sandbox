@@ -5,6 +5,7 @@ runs:
   using: composite
   steps:
   - name: Child Action With Output
+    id: step-one
     uses: ./.github/actions/child-action-with-output/
 
   - name: step two
