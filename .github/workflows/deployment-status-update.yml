@@ -28,3 +28,7 @@ jobs:
       shell: bash
       run: exit 1
 
+    - name: Always do this stuff
+      if: always()
+      shell: bash
+      run: echo "This always happens $(date +%T)"
