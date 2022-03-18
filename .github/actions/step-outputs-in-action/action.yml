@@ -1,0 +1,15 @@
+name: step-outputs-in-action
+description: Step Outputs In Action
+
+runs:
+  using: composite
+  steps:
+  - name: step one
+    id: step-one
+    shell: bash
+    run: echo "Do some stuff"
+
+  - name: echo steps context
+    id: echo-steps-context
+    shell: bash
+    run: echo "${{ toJSON(steps.step-one) }}"

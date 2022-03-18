@@ -1,0 +1,16 @@
+name: StepOutputsInAction
+
+on: 
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Step Outputs In Action
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+
+      - name: Parse Context Array
+        uses: ./.github/actions/step-outputs-in-action/
