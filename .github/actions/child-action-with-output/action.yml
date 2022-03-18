@@ -4,12 +4,13 @@ description: Child Action With Output
 outputs:
   done:
     description: "What was done"
-    value: ${{ steps.step-one.outputs.done }}
+    value: ${{ steps.child-step-one.outputs.done }}
 
 runs:
   using: composite
   steps:
   - name: child step one
+    id: child-step-one
     shell: bash
     run: |
       echo "Do some stuff"
