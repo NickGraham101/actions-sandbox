@@ -13,4 +13,4 @@ runs:
     shell: bash
     run: |
       echo "Do some stuff"
-      echo "::set-output name=done::$(echo 'stuff')"
+      echo "::set-output name=done::stuff"
