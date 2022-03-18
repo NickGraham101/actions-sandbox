@@ -12,5 +12,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.4.0
 
-      - name: Parse Context Array
+      - name: Step Outputs In Action
         uses: ./.github/actions/step-outputs-in-action/

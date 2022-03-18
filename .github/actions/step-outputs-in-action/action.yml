@@ -9,7 +9,17 @@ runs:
     shell: bash
     run: echo "Do some stuff"
 
-  - name: echo steps context
-    id: echo-steps-context
+  - name: step two
+    id: step-two
+    shell: bash
+    run: echo "Do more stuff"
+
+  - name: echo step one context
+    id: echo-step-one-context
     shell: bash
     run: echo "${{ toJSON(steps.step-one) }}"
+
+  - name: echo all steps context
+    id: echo-all-steps-context
+    shell: bash
+    run: echo "${{ toJSON(steps.*) }}"
