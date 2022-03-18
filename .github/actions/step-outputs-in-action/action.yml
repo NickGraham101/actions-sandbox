@@ -1,0 +1,30 @@
+name: step-outputs-in-action
+description: Step Outputs In Action
+
+runs:
+  using: composite
+  steps:
+  - name: Child Action With Output
+    id: step-one
+    uses: ./.github/actions/child-action-with-output/
+
+  - name: step two
+    id: step-two
+    shell: bash
+    run: echo "Do more stuff"
+
+  - name: step three
+    id: step-three
+    if: steps.step-one.outputs.done == 'stuff'
+    shell: bash
+    run: echo "Doing stuff because child done stuff"
+
+  - name: echo step one context
+    id: echo-step-one-context
+    shell: bash
+    run: echo "${{ toJSON(steps.step-one) }}"
+
+  - name: echo all steps context
+    id: echo-all-steps-context
+    shell: bash
+    run: echo "${{ toJSON(steps.*) }}"
