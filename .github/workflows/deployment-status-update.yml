@@ -3,29 +3,19 @@ name: DeploymentStatusUpdate
 on: 
   pull_request:
   workflow_dispatch:
+    inputs:
+      fail-deployment:
+        type: boolean
+        default: false
 
 jobs:
   test:
     name: Deployment Status Update
+    environment:
+      name: JobDefinedEnvironment
+      url: https://example.com
     runs-on: ubuntu-latest
     steps:
-    - name: Set Current Deployment Environment variable
-      shell: bash
-      run: |
-        echo "DEPLOY_ENV=Test" >> $GITHUB_ENV
-        ##TO DO: test for PR and set echo "DEPLOY_REF=${{ github.head_ref }}" >> $GITHUB_ENV
-        echo "DEPLOY_REF=${{ github.ref }}" >> $GITHUB_ENV
-        echo "DEPLOY_URL=https://example.com" >> $GITHUB_ENV
-
-    - name: Start ${{ env.DEPLOY_ENV }} Deployment
-      uses: bobheadxi/deployments@v1
-      id: deployment-start-status
-      with:
-        step: start
-        token: ${{ secrets.GITHUB_TOKEN }}
-        env: ${{ env.DEPLOY_ENV }}
-        ref: ${{ env.DEPLOY_REF }}
-
     - name: Do some stuff
       shell: bash
       run: |
@@ -33,16 +23,12 @@ jobs:
         sleep 30
         echo "Done some stuff $(date +%T)"
 
-    - name: Update ${{ env.DEPLOY_ENV }} status
+    - name: Fail deployment
+      if: ${{ github.event.inputs.fail-deployment == 'true' }}
+      shell: bash
+      run: exit 1
+
+    - name: Always do this stuff
       if: always()
-      uses: bobheadxi/deployments@v1
-      with:
-        step: finish
-        token: ${{ secrets.GITHUB_TOKEN }}
-        env: ${{ env.DEPLOY_ENV }}
-        status: ${{ job.status }}
-        deployment_id: ${{ steps.deployment-start-status.outputs.deployment_id }}
-        env_url: ${{ env.DEPLOY_URL }}
-        ref: ${{ env.DEPLOY_REF }}
-        override: false # this results in multiple active deployments being displayed in https://github.com/NickGraham101/actions-sandbox/deployments
-        auto_inactive: true
+      shell: bash
+      run: echo "This always happens $(date +%T)"
