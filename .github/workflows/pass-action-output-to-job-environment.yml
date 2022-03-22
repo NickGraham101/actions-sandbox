@@ -21,6 +21,8 @@ jobs:
       - name: Step Outputs In Action
         id: call-action-step
         uses: ./.github/actions/action-with-output-from-env/
+        with: 
+          environment: ${{ matrix.environment }}
 
       - name: Echo Output
         run: |

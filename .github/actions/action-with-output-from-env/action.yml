@@ -1,6 +1,10 @@
 name: action-with-output-from-env
 description: Action With Output From Env
 
+inputs:
+  environment:
+    required: true
+
 outputs:
   env-url:
     description: "URL from action env var"
@@ -16,9 +20,9 @@ runs:
     id: step-inside-action
     shell: bash
     run: |
-      echo "URL is https://example.com"
-      echo "URL=https://example.com" >> $GITHUB_ENV
-      echo "::set-output name=step-url::https://example.com"
+      echo "URL is https://example.com/${{ inputs.environment }}"
+      echo "URL=https://example.com/${{ inputs.environment }}" >> $GITHUB_ENV
+      echo "::set-output name=step-url::https://example.com/${{ inputs.environment }}"
 
   - name: echo step inside action output
     id: echo-step-inside-action-output
