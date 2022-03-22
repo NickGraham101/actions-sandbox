@@ -9,7 +9,7 @@ jobs:
     name: Pass Action Output To Job Environment
     environment:
       name: Test
-      url: ${{ steps.call-action-step.outputs.url }}
+      url: ${{ env.URL }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,4 +20,6 @@ jobs:
         uses: ./.github/actions/action-with-output-from-env/
 
       - name: Echo Output
-        run: echo ${{ steps.call-action-step.outputs.url }}
+        run: |
+          echo ${{ steps.call-action-step.outputs.url }}
+          echo ${{ env.URL }}
