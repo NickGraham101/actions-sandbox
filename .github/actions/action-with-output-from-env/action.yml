@@ -19,3 +19,8 @@ runs:
       echo "URL is https://example.com"
       echo "URL=https://example.com" >> $GITHUB_ENV
       echo "::set-output name=step-url::https://example.com"
+
+  - name: echo step inside action output
+    id: echo-step-inside-action-output
+    shell: bash
+    run: echo steps.step-inside-action.outputs.step-url
