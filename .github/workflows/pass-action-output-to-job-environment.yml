@@ -20,4 +20,4 @@ jobs:
         uses: ./.github/actions/action-with-output-from-env/
 
       - name: Echo Output
-        run: echo "Output: ${{ steps.call-action-step.outputs.url }}"
+        run: echo ${{ steps.call-action-step.outputs.url }}
