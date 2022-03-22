@@ -21,6 +21,8 @@ jobs:
 
       - name: Echo Output
         run: |
-          echo ${{ steps.step-inside-action.outputs.url }}
-          echo ${{ steps.call-action-step.outputs.url }}
+          echo ${{ steps.step-inside-action.outputs.env-url }}
+          echo ${{ steps.call-action-step.outputs.env-url }}
           echo ${{ env.URL }}
+          echo ${{ steps.step-inside-action.outputs.output-url }}
+          echo ${{ steps.call-action-step.outputs.output-url }}
