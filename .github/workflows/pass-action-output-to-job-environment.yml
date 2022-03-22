@@ -9,7 +9,7 @@ jobs:
     name: Pass Action Output To Job Environment
     environment:
       name: ${{ matrix.environment }}
-      url: ${{ env.URL }}
+      url: ${{ steps.call-action-step.outputs.output-url }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
