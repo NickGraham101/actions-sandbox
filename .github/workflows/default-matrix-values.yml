@@ -14,12 +14,8 @@ jobs:
         include:
           - environment: production
             url: https://www.find-postgraduate-teacher-training.service.gov.uk
-          - environment: qa
-            url: https://qa.find-postgraduate-teacher-training.service.gov.uk
-          - environment: staging
-            url: https://staging.find-postgraduate-teacher-training.service.gov.uk
-          - environment: sandbox
-            url: https://sandbox.find-postgraduate-teacher-training.service.gov.uk
+          - environment: [qa,staging,sandbox]
+            url: https://${{ matrix.environment }}.find-postgraduate-teacher-training.service.gov.uk
       max-parallel: 1
     steps:
       - name: Echo Values
