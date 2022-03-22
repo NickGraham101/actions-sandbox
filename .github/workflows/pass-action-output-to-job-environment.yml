@@ -9,11 +9,12 @@ jobs:
     name: Pass Action Output To Job Environment
     environment:
       name: Test
-      url: ${{ steps.step-one.outputs.url }}
+      url: ${{ steps.call-action-step.outputs.url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2.4.0
 
       - name: Step Outputs In Action
+        id: call-action-step
         uses: ./.github/actions/action-with-output-from-env/

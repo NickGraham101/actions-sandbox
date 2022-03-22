@@ -9,8 +9,8 @@ outputs:
 runs:
   using: composite
   steps:
-  - name: step one
-    id: step-one
+  - name: step inside action
+    id: step-inside-action
     shell: bash
     run: |
       echo "URL is https://example.com"
