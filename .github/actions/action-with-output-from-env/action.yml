@@ -1,0 +1,17 @@
+name: action-with-output-from-env
+description: Action With Output From Env
+
+outputs:
+  url:
+    description: "Deployment URL"
+    value: ${{ env.URL }}
+
+runs:
+  using: composite
+  steps:
+  - name: step one
+    id: step-one
+    shell: bash
+    run: |
+      echo "URL is https://example.com"
+      echo "URL=https://example.com" >> $GITHUB_ENV

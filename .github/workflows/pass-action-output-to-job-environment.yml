@@ -1,15 +1,16 @@
-name: StepOutputsInAction
+name: PassActionOutputToJobEnvironment
 
 on: 
+  pull_request:
   workflow_dispatch:
 
 jobs:
   test:
-    name: Step Outputs In Action
+    name: Pass Action Output To Job Environment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2.4.0
 
       - name: Step Outputs In Action
-        uses: ./.github/actions/step-outputs-in-action/
+        uses: ./.github/actions/action-with-output-from-env/
