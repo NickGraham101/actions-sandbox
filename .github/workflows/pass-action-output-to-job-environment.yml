@@ -7,6 +7,9 @@ on:
 jobs:
   test:
     name: Pass Action Output To Job Environment
+    environment:
+      name: Test
+      url: ${{ steps.step-one.outputs.url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
