@@ -1,0 +1,23 @@
+name: DefaultMatrixValues
+
+on: 
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Default Matrix Values
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        environment: [qa,staging,production,sandbox]
+        url: https://${{ matrix.environment }}.find-postgraduate-teacher-training.service.gov.uk
+        include:
+          - environment: production
+            url: https://www.find-postgraduate-teacher-training.service.gov.uk
+      max-parallel: 1
+    steps:
+      - name: Echo Values
+        run: |
+          echo "Environment: ${{ matrix.environment }}"
+          echo "URL: ${{ matrix.url }}"

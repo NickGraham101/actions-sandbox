@@ -1,7 +1,6 @@
 name: DeploymentStatusUpdate
 
 on: 
-  pull_request:
   workflow_dispatch:
     inputs:
       fail-deployment:
