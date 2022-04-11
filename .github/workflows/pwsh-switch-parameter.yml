@@ -17,5 +17,6 @@ jobs:
       run: |
         ./.github/scripts/Test-SwitchParameter.ps1 `
         -ThisDoesNothing "Nothing" `
-        -MoreNothing "More nothing" `
-        -ThisIsASwitch
+        -ThisIsASwitch `
+        -MoreNothing "More nothing" 
+        
