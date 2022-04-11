@@ -1,11 +1,11 @@
 name: MatrixConcurrency
-
+concurrency: matrix_concurrency_${{ github.ref_name }}
 on: 
   pull_request:
   workflow_dispatch:
 
 jobs:
-  test:
+  matrix-job:
     name: Matrix Concurrency
     runs-on: ubuntu-latest
     strategy:
