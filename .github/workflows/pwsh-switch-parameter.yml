@@ -15,7 +15,7 @@ jobs:
     - name: Test-SwitchParameter
       shell: pwsh
       run: |
-        scripts/Test-SwitchParameter.ps1 \
+        /scripts/Test-SwitchParameter.ps1 \
         -ThisDoesNothing "Nothing" \
         -ThisIsASwitch \
         -MoreNothing "More nothing"
