@@ -1,0 +1,22 @@
+name: PowerShellSwitchParameter
+
+on: 
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  run-pwsh-script:
+    name: Run powershell script
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.4.0
+
+    - name: Test-SwitchParameter
+      shell: pwsh
+      run: |
+        ./.github/scripts/Test-SwitchParameter.ps1 `
+        -ThisDoesNothing "Nothing" `
+        -ThisIsASwitch `
+        -MoreNothing "More nothing" 
+        
