@@ -1,0 +1,19 @@
+name: MatrixConcurrencyExternal
+
+on: 
+  pull_request:
+    types: [closed]
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  pre-matrix-job:
+    name: Pre Matrix
+    concurrency: matrix_concurrency_external_${{ github.event.pull_request.number }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do some stuff outside the matrix
+        run: |
+          echo "Do some stuff $(date +%T)"
+          sleep 30
+          echo "Done some stuff $(date +%T)"
