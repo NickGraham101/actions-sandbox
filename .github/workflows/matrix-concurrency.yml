@@ -2,6 +2,9 @@ name: MatrixConcurrency
 concurrency: matrix_concurrency_${{ github.ref_name }}
 
 on: 
+  push:
+    branches:
+      - main
   pull_request:
   workflow_dispatch:
 
