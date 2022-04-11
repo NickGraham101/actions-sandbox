@@ -1,0 +1,20 @@
+name: MatrixConcurrency
+
+on: 
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Matrix Concurrency
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        environment: [qa,staging,production,sandbox]
+      max-parallel: 1
+    steps:
+      - name: Do some stuff in ${{ matrix.environment }}
+        run: |
+          echo "Do some stuff $(date +%T)"
+          sleep 30
+          echo "Done some stuff $(date +%T)"
