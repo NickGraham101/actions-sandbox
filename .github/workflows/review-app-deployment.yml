@@ -1,0 +1,18 @@
+name: ReviewAppDeployment
+
+on: 
+  pull_request:
+
+jobs:
+  test:
+    name: Review App Deployment
+    environment:
+      name: review-${{ github.event.pull_request.number || github.ref_name }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Do some stuff
+      shell: bash
+      run: |
+        echo "Do some stuff $(date +%T)"
+        sleep 10
+        echo "Done some stuff $(date +%T)"
