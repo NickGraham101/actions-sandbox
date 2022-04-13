@@ -1,0 +1,30 @@
+name: action-with-output-from-env
+description: Action With Output From Env
+
+inputs:
+  environment:
+    required: true
+
+outputs:
+  env-url:
+    description: "URL from action env var"
+    value: ${{ env.URL }}
+  output-url:
+    description: "URL from step output"
+    value: ${{ steps.step-inside-action.outputs.step-url }}
+
+runs:
+  using: composite
+  steps:
+  - name: step inside action
+    id: step-inside-action
+    shell: bash
+    run: |
+      echo "URL is https://example.com/${{ inputs.environment }}"
+      echo "URL=https://example.com/${{ inputs.environment }}" >> $GITHUB_ENV
+      echo "::set-output name=step-url::https://example.com/${{ inputs.environment }}"
+
+  - name: echo step inside action output
+    id: echo-step-inside-action-output
+    shell: bash
+    run: echo ${{ steps.step-inside-action.outputs.step-url }}
