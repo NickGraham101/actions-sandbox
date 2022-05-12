@@ -1,0 +1,24 @@
+name: JobConditionMultipleTriggers
+
+on:
+  schedule: # 08:15 UTC Mon-Fri
+    - cron: '0 8 15 * 1-5'
+  workflow_dispatch:
+    inputs:
+      overwriteThisMorningsBackup:
+        required: true
+        type: boolean
+        default: false
+
+jobs:
+  test:
+    name: Job Condition Multiple Triggers
+    if: ${{ github.event_name == "schedule" || github.event_name == "workflow_dispatch" && github.event.inputs.overwriteThisMorningsBackup == true }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Do some stuff
+      shell: bash
+      run: |
+        echo "Do some stuff $(date +%T)"
+        sleep 5
+        echo "Done some stuff $(date +%T)"
