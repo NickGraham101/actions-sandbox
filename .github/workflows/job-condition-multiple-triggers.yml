@@ -1,8 +1,8 @@
 name: JobConditionMultipleTriggers
 
 on:
-  schedule: # 08:15 UTC Mon-Fri
-    - cron: '0 8 15 * 1-5'
+  schedule:
+    - cron: '0 9 10 * 1-5'
   workflow_dispatch:
     inputs:
       overwriteThisMorningsBackup:
