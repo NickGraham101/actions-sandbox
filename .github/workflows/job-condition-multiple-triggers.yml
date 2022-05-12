@@ -13,13 +13,15 @@ on:
 jobs:
   test:
     name: Job Condition Multiple Triggers
-    if: ${{ github.event.inputs.overwriteThisMorningsBackup == true }}
+    #if: ${{ github.event.inputs.overwriteThisMorningsBackup == true }}
     runs-on: ubuntu-latest
     steps:
     - name: echo event_name
       run: echo ${{ toJSON(github.event_name) }}
     - name: echo github context
       run: echo ${{ toJSON(github) }}
+    - name: echo input
+      run: echo ${{ toJSON(github.event.inputs.overwriteThisMorningsBackup) }}
     - name: Do some stuff
       run: |
         echo "Do some stuff $(date +%T)"
