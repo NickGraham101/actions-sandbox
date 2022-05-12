@@ -2,7 +2,7 @@ name: JobConditionMultipleTriggers
 
 on:
   schedule:
-    - cron: '0 9 10 * 1-5'
+    - cron: '0 9 25 * 1-5'
   workflow_dispatch:
     inputs:
       overwriteThisMorningsBackup:
@@ -18,8 +18,6 @@ jobs:
     steps:
     - name: echo event_name
       run: echo ${{ toJSON(github.event_name) }}
-    # - name: echo github context
-    #   run: echo ${{ toJSON(github) }}
     - name: echo input
       run: echo ${{ toJSON(github.event.inputs.overwriteThisMorningsBackup) }}
     - name: Do some stuff
