@@ -13,7 +13,7 @@ on:
 jobs:
   test:
     name: Job Condition Multiple Triggers
-    if: ${{ github.event_name == "schedule" || github.event_name == "workflow_dispatch" && github.event.inputs.overwriteThisMorningsBackup == true }}
+    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' && github.event.inputs.overwriteThisMorningsBackup == true }}
     runs-on: ubuntu-latest
     steps:
     - name: Do some stuff
