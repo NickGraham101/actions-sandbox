@@ -22,6 +22,7 @@ jobs:
   matrix-job:
     name: Matrix Concurrency
     runs-on: ubuntu-latest
+    concurrency: matrix_concurrency_${{ github.ref_name }}
     strategy:
       matrix:
         environment: [qa,staging,production,sandbox]
