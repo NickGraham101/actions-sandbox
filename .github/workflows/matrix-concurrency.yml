@@ -1,7 +1,7 @@
 name: MatrixConcurrency
 concurrency: matrix_concurrency_${{ github.ref_name }}
 
-on: 
+on:
   push:
     branches:
       - main
@@ -23,12 +23,15 @@ jobs:
     name: Matrix Concurrency
     runs-on: ubuntu-latest
     strategy:
-      matrix: 
+      matrix:
         environment: [qa,staging,production,sandbox]
       max-parallel: 1
     steps:
       - name: Do some stuff in ${{ matrix.environment }}
         run: |
           echo "Do some stuff $(date +%T)"
-          sleep 30
+          sleep 5
+          if [[ ${{ matrix.environment }} == "staging" ]]; then
+            exit 1;
+          fi;
           echo "Done some stuff $(date +%T)"
