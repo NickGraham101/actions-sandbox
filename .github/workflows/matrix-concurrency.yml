@@ -23,7 +23,9 @@ jobs:
     name: Matrix Concurrency
     runs-on: ubuntu-latest
     concurrency: matrix_concurrency
+    continue-on-error: false
     strategy:
+      fail-fast: true
       matrix:
         environment: [qa,staging,production,sandbox]
       max-parallel: 1
