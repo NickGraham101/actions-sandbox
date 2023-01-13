@@ -1,0 +1,43 @@
+name: TroubleshootConditions
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - labeled
+      - synchronize
+      - reopened
+      - opened
+      - converted_to_draft
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        type: choice
+        options:
+          - dev
+          - test
+          - preprod
+
+jobs:
+  always:
+    name: Always Run Job
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "This should always run"
+          echo "The labels are ${{ github.event.pull_request.labels.*.name }}"
+          echo "The event name is ${{ github.event_name }}"
+  sometimes:
+    name: Sometimes Run Job
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'deploy') || github.event_name != 'pull_request'
+    steps:
+      - run: |
+          echo "This should sometimes run"
+          echo "The labels are ${{ github.event.pull_request.labels.*.name }}"
+          echo "The event name is ${{ github.event_name }}"
