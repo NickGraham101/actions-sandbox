@@ -35,7 +35,7 @@ jobs:
   sometimes:
     name: Sometimes Run Job
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'deploy') || github.event_name != 'pull_request'
+    if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || ${{ github.event_name }} == 'workflow_dispatch'
     steps:
       - run: |
           echo "This should sometimes run"
