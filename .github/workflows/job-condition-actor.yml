@@ -1,0 +1,18 @@
+name: JobConditionActor
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Job Condition Actor
+    if: ${{ github.actor == nickgraham101 }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: echo actor
+      run: echo ${{ toJSON(github.actor) }}
+    - name: Do some stuff
+      run: |
+        echo "Do some stuff $(date +%T)"
+        sleep 5
+        echo "Done some stuff $(date +%T)"
