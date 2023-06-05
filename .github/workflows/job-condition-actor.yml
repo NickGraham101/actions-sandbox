@@ -6,7 +6,7 @@ on:
 jobs:
   test:
     name: Job Condition Actor
-    if: ${{ github.actor == nickgraham101 }}
+    if: ${{ github.actor == 'nickgraham101' }}
     runs-on: ubuntu-latest
     steps:
     - name: echo actor
