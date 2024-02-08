@@ -23,3 +23,6 @@ jobs:
     - name: Do some stuff
       run: |
         echo "Do some stuff after approval $(date +%T)"
+    - name: Do some unique stuff
+      run: |
+        echo "THIS_ENV_ONLY variable ${{ vars.THIS_ENV_ONLY }}"
