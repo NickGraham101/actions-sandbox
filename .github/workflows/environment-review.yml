@@ -17,7 +17,7 @@ jobs:
 
   second:
     name: Second job
-    environment: Staging
+    environment: Test
     runs-on: ubuntu-latest
     steps:
     - name: Do some stuff
