@@ -38,7 +38,7 @@ if (!$FederatedCredential) {
     $FederatedCredParameters = @{
         ApplicationObjectId = $ApplicationObjectId
         Audience = "api://AzureADTokenExchange"
-        Issuer = "https://token.actions.githubusercontent.com/"
+        Issuer = "https://token.actions.githubusercontent.com"
         Name = "$BaseName-FC"
         Subject = "repo:$GitHubOrgName/$GitHubRepoName"
     }
