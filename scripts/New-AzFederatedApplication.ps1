@@ -1,11 +1,13 @@
 [CmdletBinding()]
 param(
-    $ApplicationName,
     $GitHubOrgName,
     $GitHubRepoName,
     $SubscriptionName
 
 )
+
+$BaseName = "GitHub-$GitHubOrgName-$GitHubRepoName-To-$SubscriptionName"
+$ApplicationName = "$BaseName-App"
 
 # Create Application
 New-AzADApplication -DisplayName $ApplicationName
@@ -27,7 +29,7 @@ $FederatedCredParameters = @{
     ApplicationObjectId = $ObjectId
     Audience = "api://AzureADTokenExchange"
     Issuer = "https://token.actions.githubusercontent.com/"
-    Name = "GitHub-Actions-Test"
+    Name = "$BaseName-FC"
     Subject = "repo:$GitHubOrgName/$GitHubRepoName"
 }
 
