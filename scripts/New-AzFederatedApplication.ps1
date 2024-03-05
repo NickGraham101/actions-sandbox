@@ -16,7 +16,7 @@ New-AzADServicePrincipal -ApplicationId $ClientId
 
 # Assign subscription role
 $ObjectId = (Get-AzADServicePrincipal -DisplayName $ApplicationName).Id
-$Subscription = Get-AzSubscription - SubscriptionName $SubscriptionName
+$Subscription = Get-AzSubscription -SubscriptionName $SubscriptionName
 $SubscriptionScope = "/subscriptions/$($Subscription.Id)"
 $RoleAssignmentParameters = @{
     Objectid = $ObjectId
