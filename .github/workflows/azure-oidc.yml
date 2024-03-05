@@ -8,8 +8,6 @@ jobs:
     name: Azure Oidc
     runs-on: ubuntu-latest
     steps:
-    - name: Do some stuff
-      run: |
-        echo "Do some stuff $(date +%T)"
-        sleep 5
-        echo "Done some stuff $(date +%T)"
+    - uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
