@@ -2,6 +2,7 @@ name: AzureOidc
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   azure:
