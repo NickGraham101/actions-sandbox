@@ -10,6 +10,7 @@ permissions:
 jobs:
   azure:
     name: Azure Oidc
+    environment: Pay-As-You-Go
     runs-on: ubuntu-latest
     steps:
     - uses: azure/login@v2

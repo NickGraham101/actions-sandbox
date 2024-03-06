@@ -1,9 +1,14 @@
 [CmdletBinding()]
 param(
-    $GitHubOrgName,
-    $GitHubRepoName,
-    $SubscriptionName
-
+    # Name of the Github organisation that contains the repo
+    [Parameter(Mandatory=$true)]
+    [string]$GitHubOrgName,
+    # Name of the GitHub repo that will be able to make changes to the subscription
+    [Parameter(Mandatory=$true)]
+    [string]$GitHubRepoName,
+    # Name of the Azure subscription that the repo will have Contributor rights over.  An identically named Environment needs to be created in the GitHub repo.
+    [Parameter(Mandatory=$true)]
+    [string]$SubscriptionName
 )
 
 $BaseName = "GitHub-$GitHubOrgName-$GitHubRepoName-To-$SubscriptionName"
@@ -34,21 +39,23 @@ if (!$RoleAssignment) {
 }
 
 $FederatedCredential = Get-AzADAppFederatedCredential -ApplicationObjectId $ApplicationObjectId
+$FederatedCredParameters = @{
+    ApplicationObjectId = $ApplicationObjectId
+    Audience = "api://AzureADTokenExchange"
+    Issuer = "https://token.actions.githubusercontent.com"
+    Name = "$BaseName-FC"
+    Subject = "repo:$GitHubOrgName/$GitHubRepoName`:environment:$SubscriptionName"
+}
 if (!$FederatedCredential) {
-    $FederatedCredParameters = @{
-        ApplicationObjectId = $ApplicationObjectId
-        Audience = "api://AzureADTokenExchange"
-        Issuer = "https://token.actions.githubusercontent.com"
-        Name = "$BaseName-FC"
-        Subject = "repo:$GitHubOrgName/$GitHubRepoName"
-    }
     New-AzADAppFederatedCredential @FederatedCredParameters
 }
-
-$AzureCredentials = @{
-    subscriptionId =  (Get-AzContext).Subscription.Id
-    tenantId = (Get-AzContext).Subscription.TenantId
-    clientId = $ApplicationClientId   
+elseif ($FederatedCredential.Subject -ne $FederatedCredParameters["Subject"]) {
+    $FederatedCredParameters.Remove("Name")
+    $FederatedCredParameters["FederatedCredentialId"] = $FederatedCredential.Id
+    Update-AzADAppFederatedCredential @FederatedCredParameters
 }
-Write-Output "Credentials to store in GitHub secret as AZURE_CREDENTIALS:"
-Write-Output $($AzureCredentials | ConvertTo-Json)
+
+Write-Output "Credentials to store in GitHub secrets"
+Write-Output "AZURE_SUBSCRIPTION_ID :  $((Get-AzContext).Subscription.Id)"
+Write-Output "AZURE_TENANT_ID : $((Get-AzContext).Subscription.TenantId)"
+Write-Output "AZURE_CLIENT_ID : $ApplicationClientId"
