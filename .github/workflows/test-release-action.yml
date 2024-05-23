@@ -1,0 +1,48 @@
+name: TestReleaseAction
+
+on:
+  push: {}
+  workflow_dispatch: 
+    inputs:
+      releasable_branches:
+        required: true
+        type: string
+        default: 'refs/heads/main'
+      pre_release:
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  test:
+    name: Test Release Action
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v1.1.1
+        with:
+          versionSpec: '5.12.0'
+
+      - name: Determine Version
+        id: determine-version
+        uses: gittools/actions/gitversion/execute@v1.1.1
+
+      - name: Set Release Version
+        run: |
+          release_version="v${{ steps.determine-version.outputs.MajorMinorPatch }}"
+          echo "release_version=$release_version" >> $GITHUB_ENV
+          echo "release_version: $release_version"
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        if: contains(inputs.releasable_branches, github.ref_name)
+        with:
+          body: Test
+          commit: ${{ github.ref_name }}
+          tag: ${{ env.release_version }}
+          prerelease: ${{ inputs.pre_release }} ##TO DO: will this accept a boolean, actions only accept strings
