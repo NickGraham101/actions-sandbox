@@ -1,0 +1,19 @@
+name: Merge staging -> master
+on:
+  workflow_dispatch:
+
+jobs:
+  merge-branch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Merge staging -> master
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          github_token: ${{ github.token }}
+          source_ref: staging
+          target_branch: main
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
